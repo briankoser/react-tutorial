@@ -63,8 +63,17 @@ class Board extends React.Component {
           return;
       }
       squares[i] = this.state.xIsNext ? 'X' : 'O';
+      const column = (i % 3) + 1;
+      let row = 0;
+      if (i < 3) 
+        row = 1;
+      else if (i < 6) 
+        row = 2; 
+      else 
+        row = 3;
+
       this.setState({
-        history: history.concat([{squares}]),
+        history: history.concat([{column, row, squares}]),
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext
       });
@@ -84,7 +93,7 @@ class Board extends React.Component {
 
       const moves = history.map((step, move) => {
         const desc = move
-          ? `Go to move #${move}`
+          ? `Go to move #${move} (${step.column}, ${step.row})`
           : `Go to game start`;
         return (
           <li key={move}>
