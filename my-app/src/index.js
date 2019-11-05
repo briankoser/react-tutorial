@@ -47,6 +47,7 @@ class Board extends React.Component {
         history: [{
           squares: Array(9).fill(null),
         }],
+        sortHistoryDesc: true,
         stepNumber: 0,
         xIsNext: true,
       };
@@ -99,6 +100,10 @@ class Board extends React.Component {
         );
       });
 
+      if (!this.state.sortHistoryDesc) {
+        moves.reverse();
+      }
+
       let status;
       if (winner) {
           status = `Winner ${winner}`;
@@ -116,6 +121,7 @@ class Board extends React.Component {
           </div>
           <div className="game-info">
             <div>{status}</div>
+            <button onClick={() => this.setState({sortHistoryDesc: !this.state.sortHistoryDesc})}>{this.state.sortHistoryDesc ? 'Sort Asc' : 'Sort Desc'}</button>
             <ol>{moves}</ol>
           </div>
         </div>
