@@ -53,3 +53,7 @@ ol, ul {
 .bold {
   font-weight: bold;
 }
+
+.win {
+  background-color: yellow;
+}
