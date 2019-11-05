@@ -22,18 +22,15 @@ class Board extends React.Component {
     }
   
     render() {
-      let squares = [];
       let rows = [];
-      
-      // gross loop. better than nested loops I guess?
-      for(let i = 0; i < 9; i++) {
-        squares.push(this.renderSquare(i));
-        if ((i + 1) % 3 === 0) {
-          rows.push(<div className="board-row">{squares}</div>);
-          squares = [];
+
+      for(let i = 0; i < 3; i++) {
+        let squares = [];
+        for(let j = 0; j < 3; j++) {
+          squares.push(this.renderSquare(i * 3 + j));
         }
+        rows.push(<div className="board-row">{squares}</div>);
       }
-      rows.push(<div className="board-row">{squares}</div>);
 
       return (
         <div>{rows}</div>
@@ -109,7 +106,9 @@ class Board extends React.Component {
 
       let status;
       if (winner) {
-          status = `Winner ${winner}`;
+        status = `Winner ${winner}`;
+      } else if (history.length === 10) {
+        status = 'Draw';
       } else {
         status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
       }
